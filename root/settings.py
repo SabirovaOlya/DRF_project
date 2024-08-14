@@ -25,7 +25,11 @@ INSTALLED_APPS = [
     'app.apps.AppsConfig',
 
     # Third part apps installation
-    'rest_framework'
+    'rest_framework',
+    'rest_framework_swagger',
+    'drf_spectacular',
+    'drf_spectacular_sidecar',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -37,6 +41,21 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Your Project API',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SWAGGER_UI_DIST': 'SIDECAR',
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+}
 
 ROOT_URLCONF = 'root.urls'
 

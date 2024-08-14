@@ -20,16 +20,11 @@ class CategoryModelSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance: Category):
         repr = super().to_representation(instance)
-        repr['products'] = ProductModelSerializer(instance.products)
+        repr['products'] = ProductModelSerializer(instance.products.all(), many=True).data
+        return repr
 
 
 class ProductModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
-
-    def to_representation(self, instance: Product):
-        repr = super().to_representation(instance)
-        repr['category'] = CategoryModelSerializer(instance.category).data
-
-        return repr
